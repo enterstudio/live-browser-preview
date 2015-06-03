@@ -45,7 +45,7 @@ extern std::wstring gFilesToOpen;
 // constants
 #define MAX_LOADSTRING 100
 
-std::wstring towstring(std::string & stdStr)
+std::wstring towstring(const std::string & stdStr)
 {
     std::wstringstream ws;
     ws << stdStr.c_str();
@@ -333,8 +333,11 @@ static bool ConvertToShortPathName(std::wstring & path)
     return true;
 }
 
-int OpenLiveBrowser(ExtensionString argURL, bool enableRemoteDebugging, ExtensionString appSupportDirectory)
+int OpenLiveBrowser(const std::string &urlStr, bool enableRemoteDebugging, const std::string &appSupportDirectoryStr)
 {
+    std::wstring argURL = towstring(urlStr);
+    std::Wstring appSupportDirectory = towstring(appSupportDirectoryStr);
+    
     std::wstring appPath = GetPathToLiveBrowser();
     std::wstring args = appPath;
 
