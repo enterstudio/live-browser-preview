@@ -1,4 +1,6 @@
 
+#include "live_browser_preview.h"
+
 #include <windows.h>
 #include <algorithm>
 #include <CommDlg.h>
@@ -10,8 +12,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <string>
-
-#include "live_browser_preview.h"
+#include <sstream>
 
 #define CLOSING_PROP L"CLOSING"
 #define UNICODE_MINUS 0x2212
@@ -336,7 +337,7 @@ static bool ConvertToShortPathName(std::wstring & path)
 int OpenLiveBrowser(const std::string &urlStr, bool enableRemoteDebugging, const std::string &appSupportDirectoryStr)
 {
     std::wstring argURL = towstring(urlStr);
-    std::Wstring appSupportDirectory = towstring(appSupportDirectoryStr);
+    std::wstring appSupportDirectory = towstring(appSupportDirectoryStr);
     
     std::wstring appPath = GetPathToLiveBrowser();
     std::wstring args = appPath;
@@ -371,6 +372,11 @@ int OpenLiveBrowser(const std::string &urlStr, bool enableRemoteDebugging, const
     CloseHandle(pi.hThread);
 
     return NO_ERROR;
+}
+
+void CloseLiveBrowser(const v8::FunctionCallbackInfo<v8::Value>& callbackFunction)
+{
+	// TODO Implement CloseLiveBrowser for windows.
 }
 
 // Maps errors from  WinError.h to the brackets error codes
